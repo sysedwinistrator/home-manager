@@ -151,6 +151,7 @@ let
     ./programs/sqls.nix
     ./programs/ssh.nix
     ./programs/starship.nix
+    ./programs/swaylock.nix
     ./programs/taskwarrior.nix
     ./programs/tealdeer.nix
     ./programs/terminator.nix
