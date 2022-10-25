@@ -193,6 +193,7 @@ import nmt {
     ./modules/programs/wlogout
     ./modules/programs/wofi
     ./modules/programs/xmobar
+    ./modules/programs/yambar
     ./modules/programs/yt-dlp
     ./modules/services/avizo
     ./modules/services/barrier
