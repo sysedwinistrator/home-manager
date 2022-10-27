@@ -815,6 +815,14 @@ in
           A new module is available: 'xfconf'.
         '';
       }
+
+      {
+        time = "2022-11-03T10:20:44+00:00";
+        condition = hostPlatform.isLinux;
+        message = ''
+          A new module is available: 'services.cachix-agent'.
+        '';
+      }
     ];
   };
 }

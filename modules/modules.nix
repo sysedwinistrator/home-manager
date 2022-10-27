@@ -203,6 +203,7 @@ let
     ./services/betterlockscreen.nix
     ./services/blueman-applet.nix
     ./services/borgmatic.nix
+    ./services/cachix-agent.nix
     ./services/caffeine.nix
     ./services/cbatticon.nix
     ./services/clipmenu.nix
