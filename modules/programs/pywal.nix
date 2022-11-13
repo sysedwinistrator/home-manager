@@ -5,11 +5,24 @@ with lib;
 let cfg = config.programs.pywal;
 
 in {
-  options = { programs.pywal = { enable = mkEnableOption "pywal"; }; };
+  options = {
+    programs.pywal = {
+      enable = mkEnableOption "pywal";
+      userTemplates = mkOption {
+        type = types.attrsOf types.string;
+        description =
+          "user templates for pywal. See https://github.com/dylanaraps/pywal/wiki/User-Template-Files";
+      };
+    };
+  };
 
   config = mkIf cfg.enable {
 
     home.packages = [ pkgs.pywal ];
+
+    xdg.configFile =
+      builtins.mapAttrs (name: value: { source = builtins.toFile value; })
+      cfg.userTemplates;
 
     programs.zsh.initExtra = ''
       # Import colorscheme from 'wal' asynchronously
