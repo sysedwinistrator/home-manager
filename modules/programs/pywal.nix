@@ -20,9 +20,10 @@ in {
 
     home.packages = [ pkgs.pywal ];
 
-    xdg.configFile =
-      builtins.mapAttrs (name: value: { source = builtins.toFile name value; })
-      cfg.userTemplates;
+    xdg.configFile = attrsets.mapAttrs' (name: value:
+      attrsets.nameValuePair ("wal/templates" + name) {
+        source = builtins.toFile name value;
+      }) cfg.userTemplates;
 
     programs.zsh.initExtra = ''
       # Import colorscheme from 'wal' asynchronously
