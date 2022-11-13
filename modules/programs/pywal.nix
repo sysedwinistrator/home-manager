@@ -21,7 +21,7 @@ in {
     home.packages = [ pkgs.pywal ];
 
     xdg.configFile =
-      builtins.mapAttrs (name: value: { source = builtins.toFile value; })
+      builtins.mapAttrs (name: value: { source = builtins.toFile name value; })
       cfg.userTemplates;
 
     programs.zsh.initExtra = ''
