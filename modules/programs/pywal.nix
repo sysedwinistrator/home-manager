@@ -21,7 +21,7 @@ in {
     home.packages = [ pkgs.pywal ];
 
     xdg.configFile = attrsets.mapAttrs' (name: value:
-      attrsets.nameValuePair ("wal/templates" + name) {
+      attrsets.nameValuePair ("wal/templates/" + name) {
         source = builtins.toFile name value;
       }) cfg.userTemplates;
 
