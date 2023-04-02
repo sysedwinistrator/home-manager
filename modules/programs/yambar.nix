@@ -44,6 +44,22 @@ in {
           for options.
         '';
       };
+
+      systemd.enable = mkEnableOption "yambar systemd integration";
+
+      systemd.target = mkOption {
+        type = str;
+        default = "graphical-session.target";
+        example = "sway-session.target";
+        description = ''
+          The systemd target that will automatically start the yambar service.
+          </para>
+          <para>
+          When setting this value to <literal>"sway-session.target"</literal>,
+          make sure to also enable <option>wayland.windowManager.sway.systemdIntegration</option>,
+          otherwise the service may never be started.
+        '';
+      };
     };
   };
 
@@ -55,6 +71,23 @@ in {
 
     xdg.configFile."yambar/config.yml" = mkIf (cfg.settings != { }) {
       source = yamlFormat.generate "config.yml" cfg.settings;
+    };
+
+    systemd.user.services.yambar = mkIf cfg.systemd.enable {
+      Unit = {
+        Description = "Modular status panel for X11 and Wayland";
+        Documentation = "man:yambar(1)";
+        PartOf = [ "graphical-session.target" ];
+        After = [ "graphical-session.target" ];
+      };
+
+      Service = {
+        ExecStart = "${cfg.package}/bin/yambar";
+        Restart = "on-failure";
+        KillMode = "mixed";
+      };
+
+      Install = { WantedBy = [ cfg.systemd.target ]; };
     };
   };
 
