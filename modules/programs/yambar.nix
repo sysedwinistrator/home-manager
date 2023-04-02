@@ -1,8 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    hm literalExpression maintainers mkEnableOption mkOption mkPackageOption
+    platforms types;
+  inherit (lib.modules) mkIf;
   cfg = config.programs.yambar;
   yamlFormat = pkgs.formats.yaml { };
 
@@ -48,7 +50,7 @@ in {
       systemd.enable = mkEnableOption "yambar systemd integration";
 
       systemd.target = mkOption {
-        type = str;
+        type = types.str;
         default = "graphical-session.target";
         example = "sway-session.target";
         description = ''
